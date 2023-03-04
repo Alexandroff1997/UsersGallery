@@ -1,7 +1,6 @@
 import { Body, Controller, Post, Get, UseGuards, Param } from '@nestjs/common';
 import { Roles } from 'src/auth/auth-roles.decorator';
 import { AuthRolesGuard } from 'src/auth/auth-roles.guard';
-import { AuthGuard } from 'src/auth/auth.guard';
 import { AddRoleToUserDto } from './dto/add-role-to-user.dto';
 import { UserCreateDto } from './dto/user-create.dto';
 import { UsersService } from './users.service';
@@ -10,7 +9,7 @@ import { UsersService } from './users.service';
 export class UsersController {
 	constructor(private usersService: UsersService) {}
 
-	@Post()
+	@Post('/register')
 	create(@Body() dto: UserCreateDto) {
 		return this.usersService.createUser(dto);
 	}
