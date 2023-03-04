@@ -20,9 +20,9 @@ export class AuthService {
 	async register(dto: UserCreateDto) {
 		const candidate = await this.usersService.getUsersByEmail(dto.email);
 		if (candidate) {
-			throw	new HttpException('Пользователь с таким email не найден', HttpStatus.BAD_REQUEST);
+			throw	new HttpException('Пользователь с таким email существует', HttpStatus.BAD_REQUEST);
 		}
-		const hashPassword = await bcrypt.hash(dto.password, process.env.SALT || 5);
+		const hashPassword = await bcrypt.hash(dto.password, +process.env.SALT || 5);
 		const user = await this.usersService.createUser({...dto, password: hashPassword});
 		return this.generateToken(user);
 	}
