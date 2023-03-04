@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserCreateDto } from 'src/users/dto/user-create.dto';
 import { UsersService } from 'src/users/users.service';
@@ -13,6 +13,8 @@ export class AuthService {
 		private jwtService: JwtService) {}
 
 	async login(dto: UserCreateDto) {
+		const user = await this.validateUser(dto);
+		return this.generateToken(user);
 	}
 
 	async register(dto: UserCreateDto) {
@@ -34,5 +36,14 @@ export class AuthService {
 		return {
 			token: this.jwtService.sign(payload)
 		}
+	}
+
+	private async validateUser(dto: UserCreateDto) {
+		const user = await this.usersService.getUsersByEmail(dto.email);
+		const passwordMatch = await bcrypt.compare(dto.password, user.password);
+		if (user && passwordMatch) {
+			return user;
+		}
+		throw new UnauthorizedException({ message: 'Неверный email или пароль' });
 	}
 }
