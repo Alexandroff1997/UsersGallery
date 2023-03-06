@@ -9,11 +9,6 @@ import { UsersService } from './users.service';
 export class UsersController {
 	constructor(private usersService: UsersService) {}
 
-	@Post('/register')
-	create(@Body() dto: UserCreateDto) {
-		return this.usersService.createUser(dto);
-	}
-
 	@Roles('ADMIN')
 	@UseGuards(AuthRolesGuard)
 	@Get()

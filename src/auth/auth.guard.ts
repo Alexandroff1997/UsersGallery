@@ -22,7 +22,6 @@ export class AuthGuard implements CanActivate {
 			req.user = user;
 			return true;
 		} catch (err) {
-			console.log(err);
 			throw new UnauthorizedException({ message: 'Пользователь не авторизован' });
 		}
 	}

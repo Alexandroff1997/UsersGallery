@@ -1,4 +1,5 @@
-import { Column, DataType, Table, Model, BelongsToMany } from 'sequelize-typescript';
+import { Column, DataType, Table, Model, BelongsToMany, HasMany } from 'sequelize-typescript';
+import { GalleryModel } from 'src/gallery/gallery.model';
 import { RolesModel } from 'src/roles/roles.model';
 import { UserRolesModel } from 'src/roles/user-roles.model';
 
@@ -20,4 +21,7 @@ export class UsersModel extends Model<UsersModel, UserCreation> {
 
 	@BelongsToMany(() => RolesModel, () => UserRolesModel)
 	roles: RolesModel[];
+
+	@HasMany(() => GalleryModel)
+	gallery: GalleryModel[];
 }
