@@ -57,7 +57,7 @@ Example: `http://localhost:4000/roles/ADMIN`
 - Добавление роли для юзера.  POST запрос `http://localhost:4000/users/role` в body `{ "value": "ADMIN", "userId": "${id юзера}"`
 - Удаление всех картинок. DELETE запрос на `http://localhost:4000/gallery/delete-all-images'`
 
-### Работа с галлереей CRUD
+### Работа с галереей CRUD
 - Загрузка картинки в галерею `POST`
 POST запрос на `http://localhost:4000/gallery`
 в body указать userId и загрузить саму картинку. Для удобства можно воспользоваться разделом form-data в postman. Так же картинки для работы есть в папке images в корне проекта
